@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"example.com/m/v2/middleware"
-	"example.com/m/v2/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
+	"izanagi-portfolio-site.com/model"
 )
 
 func godotenvConnect() {
@@ -46,7 +45,6 @@ func Init() {
 
 	// コネクション解放解放
 	defer db.Close()
-	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.CreatedMiddleNames{})
 
 	// テーブルの初期化
@@ -59,7 +57,7 @@ func Init() {
 	db.AutoMigrate(&model.CN{})
 
 	// DB初期値の挿入
-	DbInsertSeed()
+	DbInsertSeed(db)
 }
 
 // データインサート処理
@@ -80,24 +78,24 @@ func DbMiddleNameLastFind(userId string) []model.CreatedMiddleNames {
 	return createdMiddleNames
 }
 
-//DB更新
-func DbSessionUpdate(password string, session string) {
-	db := gormConnect()
-	var user model.User
-	db.Where("password = ?", password).First(&user)
-	user.Session, _ = middleware.PasswordEncrypt(session)
-	db.Where("password = ?", password).Save(&user)
-	db.Close()
-}
+// DB更新
+// func DbSessionUpdate(password string, session string) {
+// 	db := gormConnect()
+// 	var user model.User
+// 	db.Where("password = ?", password).First(&user)
+// 	user.Session, _ = middleware.PasswordEncrypt(session)
+// 	db.Where("password = ?", password).Save(&user)
+// 	db.Close()
+// }
 
 // 全件取得
-func DbGetCreatedMiddleNames(userId string) []model.CreatedMiddleNames {
+func DbGetCreatedMiddleNames() []model.CreatedMiddleNames {
 	db := gormConnect()
 
 	defer db.Close()
 	var createdMiddleNames []model.CreatedMiddleNames
 
-	db.Where("user_id =  ?", userId).Find(&createdMiddleNames)
+	db.Find(&createdMiddleNames)
 	return createdMiddleNames
 }
 
@@ -155,34 +153,3 @@ func DBGetRandomCNData() model.CN {
 // 	db.Delete(&tweet)
 // 	db.Close()
 // }
-
-// ユーザー登録処理
-func CreateUser(userid string, username string, password string, email string, session string) []error {
-	passwordEncrypt, _ := middleware.PasswordEncrypt(password)
-	db := gormConnect()
-	defer db.Close()
-	// Insert処理
-	if err := db.Create(&model.User{UserUUID: userid, Username: username, Password: passwordEncrypt, Email: email, Session: session}).GetErrors(); err != nil {
-		return err
-	}
-	return nil
-
-}
-
-// ユーザーを一件取得
-func GetUser(username string) model.User {
-	db := gormConnect()
-	var user model.User
-	db.First(&user, "username = ?", username)
-	db.Close()
-	return user
-}
-
-// ユーザーを一件取得(from uuid)
-func GetUserFromUuid(uuid string) model.User {
-	db := gormConnect()
-	var user model.User
-	db.First(&user, "user_uuid = ?", uuid)
-	db.Close()
-	return user
-}
