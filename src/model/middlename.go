@@ -9,7 +9,6 @@ type CreatedMiddleNames struct {
 	SurName    string
 	CommonName string
 	FName      string
-	UserId     string
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	DeletedAt  *time.Time `sql:"index"`

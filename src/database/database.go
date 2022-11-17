@@ -45,7 +45,6 @@ func Init() {
 
 	// コネクション解放解放
 	defer db.Close()
-	db.AutoMigrate(&model.CreatedMiddleNames{})
 
 	// テーブルの初期化
 	db.Exec("DROP TABLE mrs")
@@ -58,45 +57,6 @@ func Init() {
 
 	// DB初期値の挿入
 	DbInsertSeed(db)
-}
-
-// データインサート処理
-func DbMiddleNameInsert(mr string, lName string, sName string, cName string, fName string, userId string) []error {
-	db := gormConnect()
-	defer db.Close()
-	// Insert処理
-	if err := db.Create(&model.CreatedMiddleNames{Mr: mr, LName: lName, SurName: sName, CommonName: cName, FName: fName, UserId: userId}).GetErrors(); err != nil {
-		return err
-	}
-	return nil
-}
-
-func DbMiddleNameLastFind(userId string) []model.CreatedMiddleNames {
-	db := gormConnect()
-	var createdMiddleNames []model.CreatedMiddleNames
-	db.Where("user_id =  ?", userId).Last(&createdMiddleNames)
-	return createdMiddleNames
-}
-
-// DB更新
-// func DbSessionUpdate(password string, session string) {
-// 	db := gormConnect()
-// 	var user model.User
-// 	db.Where("password = ?", password).First(&user)
-// 	user.Session, _ = middleware.PasswordEncrypt(session)
-// 	db.Where("password = ?", password).Save(&user)
-// 	db.Close()
-// }
-
-// 全件取得
-func DbGetCreatedMiddleNames() []model.CreatedMiddleNames {
-	db := gormConnect()
-
-	defer db.Close()
-	var createdMiddleNames []model.CreatedMiddleNames
-
-	db.Find(&createdMiddleNames)
-	return createdMiddleNames
 }
 
 func DBGetRandomMrData() model.Mr {
@@ -135,21 +95,3 @@ func DBGetRandomCNData() model.CN {
 
 	return cn
 }
-
-// //DB一つ取得
-// func DbGetOne(id int) model.Tweet {
-// 	db := gormConnect()
-// 	var tweet model.Tweet
-// 	db.First(&tweet, id)
-// 	db.Close()
-// 	return tweet
-// }
-
-// //DB削除
-// func DbDelete(id int) {
-// 	db := gormConnect()
-// 	var tweet model.Tweet
-// 	db.First(&tweet, id)
-// 	db.Delete(&tweet)
-// 	db.Close()
-// }
