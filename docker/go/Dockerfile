@@ -9,4 +9,4 @@ RUN apt install xz-utils patch file -y
 
 ENV HOST 0.0.0.0
 
-# CMD [ "go", "run", "main.go" ]
+CMD [ "go", "run", "main.go" ]
