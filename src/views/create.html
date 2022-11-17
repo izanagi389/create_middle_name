@@ -1,7 +1,7 @@
 {{ template "head" }}
 
 <body>
-    {{ template "top_page_nav" }}
+    {{ template "nav" }}
     <main>
         <div>ミドルネーム作成</div>
 
@@ -18,7 +18,9 @@
                             <input type="text" name="fname" placeholder="下の名前を入力してね！"
                                 class="input is-info form-group is-rounded"><br>
                         </div>
-                        <input type="submit" value="送信" class="button is-primary">
+                        <div class="submit_box">
+                            <input type="submit" value="送信" class="button is-primary">
+                        </div>
                     </form>
                 </div>
             </div>
