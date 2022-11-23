@@ -1,12 +1,12 @@
 package database
 
 import (
-	"example.com/m/v2/model"
-	_ "github.com/go-sql-driver/mysql" //直接的な記述が無いが、インポートしたいものに対しては"_"を頭につける決まり
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	"izanagi-portfolio-site.com/model"
 )
 
-func DbInsertSeed() {
-	db := gormConnect()
+func DbInsertSeed(db *gorm.DB) {
 
 	defer db.Close()
 	// Insert処理

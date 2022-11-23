@@ -34,6 +34,9 @@ h1 span.hero-anime {
   display: flex;
   justify-content: space-between;
   margin: 200px auto 0;
+}
+
+.text-area:last-child {
   padding-bottom: 200px;
 }
 

@@ -1,11 +1,12 @@
 {{ template "head" }}
 
 <body>
-    {{ template "user_nav" }}
+    {{ template "nav" }}
     <main>
         <div class="body" style="margin-top: 60px;">
             <div data-animate="bounce" class="animated text-area" style="margin-top: 0 !important;">
-                <div class="card text-box" style="text-align:center;width: 70% !important;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+                <div class="card text-box"
+                    style="text-align:center;width: 70% !important;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);">
                     <div class="card-content">
                         <div class="media">
                             <div class="media-content">
@@ -13,19 +14,16 @@
                             </div>
                         </div>
                         <div class="content">
-                            {{range .middleName}}
 
                             <span style="font-size:50px;font-family: 'Rampart One', cursive;">{{.Mr}}</span>
-                            <span style="font-size:50px;font-family: 'Rampart One', cursive;">{{.LName}}</span>
+                            <span style="font-size:50px;font-family: 'Rampart One', cursive;color: darkgreen;">{{.LName}}</span>
                             <span style="font-size:50px;font-family: 'Rampart One', cursive;">{{.SurName}}</span>
                             <span style="font-size:50px;font-family: 'Rampart One', cursive;">{{.CommonName}}</span>
-                            <span style="font-size:50px;font-family: 'Rampart One', cursive;">{{.FName}}</span>
+                            <span style="font-size:50px;font-family: 'Rampart One', cursive;color: darkgreen;">{{.FName}}</span>
 
-                            {{end}}
                             <br>
                         </div>
-                        <a class="button is-primary is-rounded" href="/app/middle_name/user/create">ミドルネーム再作成</a>
-                        <a class="button is-primary is-rounded" href="/app/middle_name/user/history">作成履歴</a>
+                        <a class="button is-primary is-rounded" href="/app/middle_name/create">ミドルネーム再作成</a>
                     </div>
                 </div>
             </div>

@@ -11,16 +11,18 @@ main {
   background-size: cover;
   background-position: center;
 }
-top{
-  position: relative;/*←相対位置*/
+
+top {
+  position: relative;
+  /*←相対位置*/
 }
 
-.child{
+.child {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform : translate(-50%,-50%);
-  transform : translate(-50%,-50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .form {
@@ -55,4 +57,8 @@ footer {
 
 footer div {
   margin: 0 auto;
+}
+
+.is-active .navbar-start {
+  text-align: center;
 }

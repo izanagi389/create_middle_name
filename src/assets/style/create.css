@@ -1,0 +1,14 @@
+div.form-group:first-child {
+    margin-bottom: 100px;
+}
+
+.submit_box {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit_box input {
+    margin: 0 auto;
+    width: 50%;
+}
